@@ -1,0 +1,592 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+
+
+ /* ====== FONT ====== */
+/* ====== Custom Font ====== */
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('images/Helvetica-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* ====== GLOBAL ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  user-select: none;
+}
+
+body {
+  background: linear-gradient(to bottom, #00ffff, #00ffff);
+  font-family: 'MyCustomFont', sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* γεμίζει όλη την οθόνη */
+  margin: 0;
+  padding-top: 100px; /* για navbar */
+  overflow-x: hidden;
+}
+
+/* ====== NAVBAR ====== */
+nav {
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  padding: 0 50px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.logout-msg {
+    text-align: center;
+    color: #0baa93; /* ή #ff8431 / #9fd9df */
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.7);
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+
+
+nav:after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+nav .logo {
+  float: left;
+  color: #00ffff;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 70px;
+}
+
+nav ul {
+  float: right;
+  list-style: none;
+  position: relative;
+}
+
+nav ul li {
+  display: inline-block;
+  position: relative;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 70px;
+  padding: 8px 15px;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #00ffff;
+  text-shadow: 0 0 8px #00ffff, 0 0 15px #00ffff;
+}
+
+/* ====== DROPDOWN ====== */
+nav ul ul {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  background: rgba(0,0,0,0.9);
+  padding: 10px 0;
+  border-radius: 8px;
+  display: none;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+nav ul li:hover > ul {
+  display: block;
+  opacity: 1;
+}
+
+nav ul ul li {
+  width: 200px;
+}
+
+nav ul ul li a {
+  line-height: 40px;
+  display: block;
+  padding-left: 20px;
+}
+
+nav ul ul li a:hover {
+  background: #111;
+}
+
+/* ====== USER MENU (ανθρωπάκι) ====== */
+ .user-menu i {
+  font-size: 28px; /* από 20-22px το πάμε μεγαλύτερο */
+  line-height: 70px; /* να ευθυγραμμίζεται στο navbar */
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s;
+}
+
+.user-menu i:hover {
+  color: cyan;
+}
+
+
+
+.user-menu {
+  position: relative;
+  display: inline-block; /* να κολλάει στο εικονίδιο */
+  
+}
+
+
+.user-menu .dropdown {
+  position: absolute;
+  top: 70px;       /* κάτω από το ανθρωπάκι */
+  right: 0;        /* ευθυγράμμιση δεξιά */
+  left: auto;      /* ακύρωση του left από το γενικό */
+  background: #1b1b1b;
+  border: 1px solid cyan;
+  border-radius: 8px;
+  min-width: 150px;
+  display: none;
+  z-index: 999;
+  
+}
+
+.user-menu:hover .dropdown,
+.user-menu .dropdown:hover {
+  display: block;
+}
+
+.user-menu .dropdown li a {
+  display: block;
+  padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.user-menu .dropdown li a:hover {
+  background: cyan;
+  color: #000;
+}
+/* ====== SLIDER ====== */
+.scroll-holder {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  white-space: nowrap;
+  padding: 20px 0;
+  margin-top: 90px;
+  background: #111;
+}
+
+.scroll-tray {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-tray-hero 60s linear infinite;
+}
+
+.scroll-tray div {
+  display: inline-block;
+  margin: 0 10px;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #33ccff, #ff33cc);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.scroll-tray div img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 200px;
+  border-radius: 12px;
+}
+
+.scroll-tray div:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+}
+
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('images/stadium.jpg') no-repeat center/cover;
+  color: #fff;
+  text-align: center;
+  padding: 140px 20px 100px;
+}
+.hero a {
+  display: inline-block;
+  margin-top: 20px;
+  background: linear-gradient(45deg, #0baa93, #ff8431);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(0, 186, 147, 0.6);
+}
+
+.hero a:hover {
+  background: linear-gradient(45deg, #ff8431, #0baa93);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(0,255,255,0.9), 0 0 35px rgba(255,132,49,0.7);
+  transform: scale(1.05);
+}
+
+.hero-logo {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+/* Hero image glow */
+.hero img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0,255,255,0.4);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #0baa93;
+  text-shadow: 0 0 12px #000;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: #ff8431;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.cta-btn:hover {
+  background: #e46d15;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 50px 20px;
+  background: #111;
+}
+
+.feature {
+  flex: 1 1 250px;
+  background: #1b1b1b;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+
+.feature h2 {
+  color: #9fd9df;
+  margin-bottom: 15px;
+}
+
+
+.featured-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.featured-grid .card {
+  width: 200px;
+  background: #072b35;
+  color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.featured-grid .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,255,255,0.5);
+}
+
+.featured-grid img {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #00ffff;
+}
+
+.featured-grid h3 {
+  padding: 10px;
+  font-size: 1rem;
+  color: #00ffff;
+}
+
+/* ====== FOOTER ALWAYS BOTTOM ====== */
+footer {
+  flex-shrink: 0; /* μην μικραίνει */
+  background: #111;
+  color: #aaa;
+  text-align: center;
+  padding: 30px 15px;
+  margin-top: auto; /* κολλάει κάτω */
+}
+
+footer a {
+  color: #00ffff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 0 20px;
+  }
+
+  nav .logo {
+    font-size: 22px;
+    line-height: 60px;
+  }
+
+  .menu-toggle {
+    display: block;
+    float: right;
+  }
+
+  nav ul {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 2px solid #b30e0e;
+    z-index: 999;
+    padding: 10px 0;
+    animation: fadeIn 0.3s ease;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  nav ul li {
+    display: block;
+    margin: 10px 0;
+  }
+
+  nav ul li a {
+    display: block;
+    font-size: 18px;
+    padding: 10px;
+    line-height: normal;
+  }
+  /* Κλειστό από την αρχή */
+#nav-links {
+  display: none; /* κλειστό από default σε mobile */
+}
+
+/* Όταν είναι ενεργό (burger πατημένο) */
+#nav-links.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+  /* Dropdown στο κινητό */
+  nav ul ul {
+    position: static;
+    background: #111;
+    padding: 0;
+    border: none;
+  }
+
+  nav ul li:hover > ul {
+    display: block;
+  }
+
+  .user-menu .dropdown {
+    top: auto;      /* ακυρώνουμε το top */
+    bottom: 60px;   /* ανοίγει πάνω από το εικονίδιο */
+    right: 0;
+    background: #111;
+    border-radius: 10px;
+    padding: 10px 0;
+    display: none;
+    flex-direction: column;
+  }
+
+  .user-menu:hover .dropdown,
+  .user-menu.active .dropdown {
+    display: flex;
+  }
+
+}
+
+.leaderboard-box {
+  position: absolute;
+  top: 50%;
+  right: 40px; /* Αν το θες αριστερά βάλτο left:40px; και βγάλε το right */
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.8);
+  border: 2px solid #00ffff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  text-align: left;
+  z-index: 2;
+  box-shadow: 0 0 15px rgba(0,255,255,0.6);
+}
+
+.leaderboard-box h3 {
+  margin-bottom: 15px;
+  color: #00ffff;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.player:hover {
+  background: rgba(0,186,147,0.3);
+  transform: translateX(5px);
+  box-shadow: 0 0 15px rgba(0,255,255,0.6);
+}
+
+.player .medal {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+.player .name {
+  flex: 1;
+  color: #fff;
+  font-weight: 500;
+}
+
+.player .score {
+  color: #9fd9df;
+  font-size: 0.9rem;
+}
+
+/* Top 3 players - μικρότερο text μέσα στον κύκλο */
+.player:nth-child(1) .score,
+.player:nth-child(2) .score,
+.player:nth-child(3) .score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.75rem;  /* μικρότερα γράμματα */
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    color: #fff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect */
+.player:nth-child(1) .score:hover,
+.player:nth-child(2) .score:hover,
+.player:nth-child(3) .score:hover {
+    transform: scale(1.2);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+}
+
+/* Gradient ανά θέση */
+.player:nth-child(1) .score,
+.player:nth-child(2) .score,
+.player:nth-child(3) .score {
+    background: #0baa93;
+}
+
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 3000;
+}
+
+.autocomplete-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.autocomplete-item:hover {
+  background: #f0f0f0;
+}
+
+.autocomplete-item img {
+  width: 30px;
+  height: 20px;
+  margin-right: 8px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.autocomplete-item .meta .name {
+  font-weight: 600;
+}
+
+.autocomplete-item .meta .team {
+  font-size: 12px;
+  color: #666;
+}
+

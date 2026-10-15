@@ -1,0 +1,234 @@
+<style>
+/* NAVBAR GLOBAL */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #0b2a33;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* όλα δεξιά */
+    padding: 0 40px;
+    height: 70px;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+nav .logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: #f1f5f9;
+    margin-right: auto; /* logo αριστερά */
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 25px;
+    align-items: center;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    color: #f1f5f9;
+    font-weight: 700;
+    padding: 8px 12px;
+    display: block;
+}
+
+nav ul li .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #111;
+    flex-direction: column;
+    padding: 10px 0;
+    border-radius: 8px;
+    min-width: 160px;
+    z-index: 1000;
+}
+
+nav ul li:hover > .submenu {
+    display: flex;
+}
+
+/* User menu dropdown desktop αριστερά */
+.user-menu {
+    cursor: pointer;
+    position: relative;
+}
+
+.user-menu .dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    left: auto;
+    background: #111;
+    padding: 10px 0;
+    border-radius: 8px;
+    min-width: 140px;
+    z-index: 1001;
+}
+
+.user-menu:hover .dropdown {
+    display: flex;
+}
+
+/* Burger menu (θα εμφανίζεται μόνο σε mobile) */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    color: #f1f5f9;
+}
+
+/* MOBILE */
+@media (max-width: 720px) {
+    nav {
+        padding: 0 20px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    #nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.95);
+        gap: 0;
+        border-top: 2px solid #b30e0e;
+        padding: 10px 0;
+    }
+
+    #nav-links.active {
+        display: flex;
+    }
+
+    #nav-links li {
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    #nav-links li .submenu {
+        position: static;
+        display: none;
+        padding: 0;
+        background: #111;
+    }
+
+    #nav-links li.active > .submenu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-menu .dropdown {
+        top: auto;
+        bottom: 60px;
+        right: 0;
+        left: auto;
+    }
+}
+
+
+</style>
+
+<nav>
+  <div class="logo">QUIZBALL</div>
+
+  <!-- Burger Menu Toggle -->
+  <div class="menu-toggle" id="menu-toggle">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <ul id="nav-links">
+    <li><a href="index.php">Home</a></li>
+    <li>
+      <a href="#">Categories</a>
+      <ul class="submenu">
+        <li><a href="single.php?category=single">Single Player</a></li>
+        <li><a href="same_screen.php?category=same_screen">1v1</a></li>
+        <li><a href="categories.php">All Game Modes</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.php">Contact</a></li>
+    <li class="user-menu">
+      <i class="fas fa-user-circle"></i>
+      <ul class="dropdown">
+        <?php if ($isLoggedIn): ?>
+          <li><strong><?= htmlspecialchars($username) ?></strong></li>
+          <li><a href="account.php">Account</a></li>
+          <li><a href="logout.php">Logout</a></li>
+        <?php else: ?>
+          <li><a href="login.php">Login</a></li>
+          <li><a href="signup.php">Signup</a></li>
+        <?php endif; ?>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    const submenuParents = document.querySelectorAll('#nav-links li > .submenu');
+
+    // Burger toggle
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // Mobile submenu toggle
+    document.querySelectorAll('#nav-links > li').forEach(li => {
+        li.addEventListener('click', e => {
+            if(window.innerWidth <= 720){
+                const submenu = li.querySelector('.submenu');
+                if(submenu){
+                    li.classList.toggle('active');
+                    e.stopPropagation();
+                }
+            }
+        });
+    });
+
+    // Keep dropdown in view for user menu
+    const userMenu = document.querySelector('.user-menu');
+    const dropdown = userMenu.querySelector('.dropdown');
+
+    userMenu.addEventListener('mouseenter', () => {
+        const menuRect = userMenu.getBoundingClientRect();
+        const dropdownRect = dropdown.getBoundingClientRect();
+
+        if(menuRect.right + dropdownRect.width > window.innerWidth){
+            dropdown.style.left = 'auto';
+            dropdown.style.right = '0';
+        } else {
+            dropdown.style.left = '0';
+            dropdown.style.right = 'auto';
+        }
+        dropdown.style.opacity = '1';
+        dropdown.style.visibility = 'visible';
+        dropdown.style.transform = 'translateY(0)';
+    });
+
+    userMenu.addEventListener('mouseleave', () => {
+        dropdown.style.opacity = '0';
+        dropdown.style.visibility = 'hidden';
+        dropdown.style.transform = 'translateY(8px)';
+    });
+});
+
+</script>
